@@ -6,10 +6,10 @@
 
 % Let's assume that the "helicopter" (state-space model in the handed out 
 % simulink file) is supposed to do the following for the travel: 
-%    - Start to go to x0=3.
+%    - Start to go to x_1(0)=3.
 %    - at time 2 seconds, the reference change to 4.
 %    - at time 6 seconds, the reference change to 1.
-% There are two states in the model: the travel x1 and the elevation x2.
+% There are two states in the model: the travel x_1 and the elevation x_2.
 % The move should be performed in 10 seconds. The sampling
 % time can be set to h=0.25. The elevation reference is kept at zero at 
 % all times.
@@ -35,7 +35,9 @@ time_steps = [0:h:T]';
 %   Remember, the goal is to learn how to pass data to Simulink, Store data
 %   from Simulink, and finally plot data.
 
-% your code goes here
+% Task 2
+x_ref = [x_travel_ref x_elevation_ref];
+reference = timeseries(x_ref, time_steps);
 
 
 %% Fake-model parameters (You should not change this part)
@@ -46,3 +48,13 @@ C = [1,0;0,1];
 X0 = [pi;2];
 
 
+%% Plots
+input = load('pXtY_what-we-are-doing_file-contains.mat');
+data = input.ans;
+time = data(1,:);
+
+travel_ref = data(2,:);
+travel_meas = data(4,:);
+
+plot(time, travel_ref, time, travel_meas);
+legend('Reference', 'Measurement');

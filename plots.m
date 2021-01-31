@@ -5,19 +5,19 @@ clear all
 close all
 
 %% Init one file
-input = load('p4t5_kalman-feedback-optimal-tuning_e-dot-and-e-dot-c_vs-tilde-fix.mat');
+input = load('pXtY_what-we-are-doing_file-contains.mat');
 plot_title = 'Kalman estimator feedback, optimal tuning, elevation rate';
 file_name = 'p4t5_kalman-feedback-optimal-tuning_e_dot';
 xaxis = 'Time [s]';
 yaxis = 'Elevation rate [rad/s]';
 
 time = input.ans(1,:);
-setpoint = input.ans(3,:);
-values = input.ans(2,:);
+setpoint = input.ans(2,:);
+values = input.ans(4,:);
 %values2 = input.ans(2,:);
 
-time_start = 5;
-time_end = 70;
+time_start = 0;
+time_end = time(end);
 
 
 % figure; % Calling figure => Plot/write in a new window
