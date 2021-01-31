@@ -12,6 +12,8 @@ clc;
 travel_gain = 1; %
 elevation_gain = 1; %
 
+time_step = 0.25;   % Dobbelsjekk?
+
 %% Physical constants
 m_h = 0.4; % Total mass of the motors.
 m_g = 0.03; % Effective mass of the helicopter.
@@ -88,3 +90,25 @@ if plot_elev_response
     legend('norm error', 'norm input')
     title('Elevation closed loop response')
 end
+
+
+%% State space model
+A_full = [0, 1, 0, 0;
+        0, 0, -K_2, 0;
+        0, 0, 0, 1;
+        0, 0, -K_1*K_pp, -K_1*K_pd];
+
+B_full = [0;
+    0;
+    0;
+    K_1*K_pp];
+
+C_full = zeros(1,4);
+
+D_full = 0;
+
+sys = ss(A_full, B_full, C_full, D_full, time_step);
+
+% Discretized system
+A = sys.A;
+B = sys.B;
