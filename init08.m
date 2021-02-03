@@ -93,15 +93,15 @@ end
 
 
 %% State space model
-A_full = [0, 1, 0, 0;
-        0, 0, -K_2, 0;
-        0, 0, 0, 1;
-        0, 0, -K_1*K_pp, -K_1*K_pd];
+A_full = [  0, 1,       0,      0;
+            0, 0,    -K_2,      0;
+            0, 0,       0,      1;
+            0, 0, -K_1*K_pp, -K_1*K_pd];
 
-B_full = [0;
-    0;
-    0;
-    K_1*K_pp];
+B_full = [  0;
+            0;
+            0;
+         K_1*K_pp];
 
 C_full = zeros(1,4);
 
