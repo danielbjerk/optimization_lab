@@ -107,7 +107,8 @@ C_full = zeros(1,4);
 
 D_full = 0;
 
-sys = ss(A_full, B_full, C_full, D_full, time_step);
+sys_full = ss(A_full, B_full, C_full, D_full);
+sys = c2d(sys_full, time_step);
 
 % Discretized system
 A = sys.A;
