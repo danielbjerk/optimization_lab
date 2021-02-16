@@ -1,14 +1,10 @@
-% TTK4135 - Helicopter lab
-% Hints/template for problem 2.
-% Updated spring 2018, Andreas L. Flåten
-
 %% Initialization and model definition
-init08; % Change this to the init file corresponding to your helicopter
+%init08; % Change this to the init file corresponding to your helicopter
 
 % Discrete time system model. x = [lambda r p p_dot]'
 delta_t	= 0.25; % sampling time
-A1 = [1,0.250000000000000,-0.0174360038739869,-0.00118286849233846;0,1,-0.137657890700208,-0.0131776773015685;0,0,0.924560819851571,0.159407037905443;0,0,-0.516478802813636,0.350695483391975];
-B1 = [-0.000250294202936143;-0.00383249391517661;0.0754391801484287;0.516478802813636];
+A1 = A;
+B1 = B;
 
 % Number of states and inputs
 mx = size(A1,2); % Number of states (number of columns in A)
@@ -109,37 +105,48 @@ xlabel('tid (s)'),ylabel('pdot')
 
 
 %% Plot measurement against calculations
-pitch_reference = timeseries(u,t);
-
-sim_t = 0.002;
-t_f = 30;
-
-input = load('p2t7_not-optimum_u-x.mat');
-data = input.ans;
-u_m = data(2,1:t_f/delta_t:t_f/sim_t);
-y1 = data(3,1:t_f/delta_t:t_f/sim_t);
-y2 = data(4,1:t_f/delta_t:t_f/sim_t);
-y3 = data(5,1:t_f/delta_t:t_f/sim_t);
-y4 = data(6,1:t_f/delta_t:t_f/sim_t);
-
-
-figure(2)
-subplot(511)
-stairs(t,u,t,u_m),grid
-ylabel('u')
-title('Optimal trajectory from x_0 to x_f with weight q = 1')
-subplot(512)
-plot(t,x1,'m',t,x1,'mo',t,y1),grid
-ylabel('lambda')
-subplot(513)
-plot(t,x2,'m',t,x2','mo',t,y2),grid
-ylabel('r')
-subplot(514)
-plot(t,x3,'m',t,x3,'mo',t,y3),grid
-ylabel('p')
-subplot(515)
-plot(t,x4,'m',t,x4','mo',t,y4),grid
-xlabel('tid (s)'),ylabel('pdot')
+% sim_t = 0.002;
+% t_f = 30;
+% 
+% input = load('p2t7_not-optimum_u-x.mat');
+% data = input.ans;
+% u_m = data(2,1:t_f/delta_t:t_f/sim_t);
+% y1 = data(3,1:t_f/delta_t:t_f/sim_t);
+% y2 = data(4,1:t_f/delta_t:t_f/sim_t);
+% y3 = data(5,1:t_f/delta_t:t_f/sim_t);
+% y4 = data(6,1:t_f/delta_t:t_f/sim_t);
+% 
+% 
+% figure(2)
+% subplot(511)
+% stairs(t,u,t,u_m),grid
+% ylabel('u')
+% title('Optimal trajectory from x_0 to x_f with weight q = 1')
+% subplot(512)
+% plot(t,x1,'m',t,x1,'mo',t,y1),grid
+% ylabel('lambda')
+% subplot(513)
+% plot(t,x2,'m',t,x2','mo',t,y2),grid
+% ylabel('r')
+% subplot(514)
+% plot(t,x3,'m',t,x3,'mo',t,y3),grid
+% ylabel('p')
+% subplot(515)
+% plot(t,x4,'m',t,x4','mo',t,y4),grid
+% xlabel('tid (s)'),ylabel('pdot')
 
 %% Save figure
 % print('p2t3_comparing-q_q10','-depsc');
+
+%% LQ Problem
+u_opt = timeseries(u,t);
+x1_opt = timeseries(x1,t);
+x2_opt = timeseries(x2,t);
+x3_opt = timeseries(x3,t);
+x4_opt = timeseries(x4,t);
+x_opt = [x1_opt; x2_opt; x3_opt; x4_opt];
+
+Q_k = diag([10 0 0 0]);
+R_k = 0.1;
+
+[K,S,e] = dlqr(A,B,Q_k,R_k);

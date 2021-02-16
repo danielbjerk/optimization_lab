@@ -5,7 +5,7 @@ clear all
 close all
 
 %% Init one file
-input = load('pXtY_what-we-are-doing_file-contains.mat');
+input = load('p2t7_not-optimum_u-x.mat');
 plot_title = 'Kalman estimator feedback, optimal tuning, elevation rate';
 file_name = 'p4t5_kalman-feedback-optimal-tuning_e_dot';
 xaxis = 'Time [s]';
