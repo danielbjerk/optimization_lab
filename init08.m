@@ -92,7 +92,7 @@ if plot_elev_response
 end
 
 
-%% State space model
+%% State space model (4 states)
 A_full = [  0, 1,       0,      0;
             0, 0,    -K_2,      0;
             0, 0,       0,      1;
@@ -106,6 +106,33 @@ B_full = [  0;
 C_full = zeros(1,4);
 
 D_full = 0;
+
+sys_full = ss(A_full, B_full, C_full, D_full);
+sys = c2d(sys_full, time_step);
+
+% Discretized system
+A = sys.A;
+B = sys.B;
+
+
+%% State space model (6 states)
+A_full = [  0,      1,      0,          0,          0,          0;
+            0,      0,      -K_2,       0,          0,          0;
+            0,      0,      0,          1,          0,          0;
+            0,      0,      -K_1*K_pp,  -K_1*K_pd,  0,          0;
+            0,      0,      0,          0,          0,          1;
+            0,      0,      0,          0,          -K_3*K_ep,  -K_3*K_ed];
+
+B_full = [  0,          0;
+            0,          0;
+            0,          0;
+            K_1*K_pp,   0;
+            0,          0;
+            0,          K_3*K_ep];
+
+C_full = zeros(1,6);
+
+D_full = [0, 0];
 
 sys_full = ss(A_full, B_full, C_full, D_full);
 sys = c2d(sys_full, time_step);

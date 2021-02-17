@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.10
+ * Model version              : 11.12
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb  3 11:05:56 2021
+ * C source code generated on : Wed Feb 17 08:39:03 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -877,6 +877,7 @@ typedef struct {
   real_T Sum;                          /* '<Root>/Sum' */
   real_T Gain_dg;                      /* '<S8>/Gain' */
   real_T Gain1[6];                     /* '<S2>/Gain1' */
+  real_T Sum10[4];                     /* '<Root>/Sum10' */
   real_T FromWorkspace;                /* '<Root>/From Workspace' */
   real_T Gain_l;                       /* '<S11>/Gain' */
   real_T BackmotorSaturation;          /* '<S4>/Back motor: Saturation' */
@@ -1049,6 +1050,9 @@ struct P_helicopter_T_ {
                                         */
   real_T travel_gain;                  /* Variable: travel_gain
                                         * Referenced by: '<S4>/Travel_gain'
+                                        */
+  real_T x0[4];                        /* Variable: x0
+                                        * Referenced by: '<Root>/Constant1'
                                         */
   uint32_T HILWriteAnalog_channels[2];/* Mask Parameter: HILWriteAnalog_channels
                                        * Referenced by: '<S4>/HIL Write Analog'
@@ -1528,7 +1532,7 @@ extern RT_MODEL_helicopter_T *const helicopter_M;
  *
  * '<Root>' : 'helicopter'
  * '<S1>'   : 'helicopter/Conversion'
- * '<S2>'   : 'helicopter/Degrees to Radians'
+ * '<S2>'   : 'helicopter/Degrees to Radians1'
  * '<S3>'   : 'helicopter/Elevation controller'
  * '<S4>'   : 'helicopter/Helicopter_interface'
  * '<S5>'   : 'helicopter/Pitch controller'

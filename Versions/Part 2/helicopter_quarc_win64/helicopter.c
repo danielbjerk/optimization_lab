@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.10
+ * Model version              : 11.12
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb  3 11:05:56 2021
+ * C source code generated on : Wed Feb 17 08:39:03 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -207,6 +207,14 @@ void helicopter_output(void)
   helicopter_B.Gain1[3] = helicopter_P.Gain1_Gain * helicopter_B.Gain_b;
   helicopter_B.Gain1[4] = helicopter_P.Gain1_Gain * helicopter_B.Sum;
   helicopter_B.Gain1[5] = helicopter_P.Gain1_Gain * helicopter_B.Gain_dg;
+
+  /* Sum: '<Root>/Sum10' incorporates:
+   *  Constant: '<Root>/Constant1'
+   */
+  helicopter_B.Sum10[0] = helicopter_P.x0[0] + helicopter_B.Gain1[0];
+  helicopter_B.Sum10[1] = helicopter_P.x0[1] + helicopter_B.Gain1[1];
+  helicopter_B.Sum10[2] = helicopter_P.x0[2] + helicopter_B.Gain1[2];
+  helicopter_B.Sum10[3] = helicopter_P.x0[3] + helicopter_B.Gain1[3];
   if (rtmIsMajorTimeStep(helicopter_M)) {
   }
 
@@ -263,10 +271,10 @@ void helicopter_output(void)
   if (rtmIsMajorTimeStep(helicopter_M)) {
     /* SignalConversion generated from: '<Root>/To File' */
     rtb_TmpSignalConversionAtToFile[0] = helicopter_B.FromWorkspace;
-    rtb_TmpSignalConversionAtToFile[1] = helicopter_B.Gain1[0];
-    rtb_TmpSignalConversionAtToFile[2] = helicopter_B.Gain1[1];
-    rtb_TmpSignalConversionAtToFile[3] = helicopter_B.Gain1[2];
-    rtb_TmpSignalConversionAtToFile[4] = helicopter_B.Gain1[3];
+    rtb_TmpSignalConversionAtToFile[1] = helicopter_B.Sum10[0];
+    rtb_TmpSignalConversionAtToFile[2] = helicopter_B.Sum10[1];
+    rtb_TmpSignalConversionAtToFile[3] = helicopter_B.Sum10[2];
+    rtb_TmpSignalConversionAtToFile[4] = helicopter_B.Sum10[3];
 
     /* ToFile: '<Root>/To File' */
     {
@@ -307,8 +315,8 @@ void helicopter_output(void)
    *  Sum: '<S5>/Sum2'
    *  Sum: '<S5>/Sum3'
    */
-  rtb_Clock = ((helicopter_B.FromWorkspace - helicopter_B.Gain1[2]) *
-               helicopter_P.K_pp - helicopter_P.K_pd * helicopter_B.Gain1[3]) +
+  rtb_Clock = ((helicopter_B.FromWorkspace - helicopter_B.Sum10[2]) *
+               helicopter_P.K_pp - helicopter_P.K_pd * helicopter_B.Sum10[3]) +
     helicopter_P.Vd_ff;
 
   /* Integrator: '<S3>/Integrator' */
@@ -961,36 +969,36 @@ void helicopter_initialize(void)
       0.52359877559829882, 0.52359877559829882, 0.52359877559829882,
       0.52359877559829882, 0.52359877559829882, 0.52359877559829882,
       0.52359877559829882, 0.52359877559829882, 0.52359877559829882,
-      0.52359877559829882, 0.42776643257765889, 0.14057319528698875,
-      -0.087710905463314448, -0.2634777877400466, -0.39310128810488587,
-      -0.48281859902482438, -0.52359877559819423, -0.52359877559829759,
-      -0.52359877559829793, -0.523598775598296, -0.52359877556626622,
-      -0.49181315397383668, -0.4473165581302439, -0.39879177419324136,
-      -0.34855779056657255, -0.2984918414110832, -0.25006708342326228,
-      -0.20439421777480032, -0.16226507944084861, -0.12419652373272955,
-      -0.090473255975822675, -0.061188553525430844, -0.0362821074257087,
-      -0.015574457566057132, 0.0012022924797384649, 0.014377616850323127,
-      0.024319556134527964, 0.031415430485238871, 0.036056067895795518,
-      0.038623276771857951, 0.039480251545949474, 0.038964577678520129,
-      0.037383494827157193, 0.035011081317980253, 0.032087036654407819,
-      0.028816759269639891, 0.025372441990249794, 0.021894935947169514,
-      0.018496163453578185, 0.015261890445434689, 0.012254698479389425,
-      0.0095170242612498956, 0.0070741606937217982, 0.0049371371170968681,
-      0.0031054175517526428, 0.0015693742411377887, 0.0003125096428927554,
-      -0.000686586692854374, -0.00145254904243175, -0.0020118082623005185,
-      -0.0023914137845110206, -0.0026180874183571179, -0.0027174882338544259,
-      -0.0027136658365902733, -0.0026286784782487693, -0.0024823524747817904,
-      -0.0022921601341617803, -0.0020731946566328041, -0.0018382221115531561,
-      -0.0015977924861063642, -0.0013603938323755171, -0.0011326356197949305,
-      -0.000919449456997512, -0.00072429732409562408, -0.00054937931156773256,
-      -0.00039583456610403633, -0.00026393067892227506, -0.00015323810939560367,
-      -6.2787415247678169E-5, 8.7919348887854909E-6, 6.3151550112938715E-5,
-      0.00010212260022757214, 0.00012763192947284896, 0.00014163449599113864,
-      0.00014606048599863364, 0.0001427751806531985, 0.00013354943735466307,
-      0.00012003846688446451, 0.00010376642854426077, 8.6114221110156208E-5,
-      6.8307729560457275E-5, 5.1403742346911585E-5, 3.6270893189027653E-5,
-      2.3563537791426725E-5, 1.3687901600611951E-5, 6.7629729071372324E-6,
-      2.5849973228631029E-6, 6.167830978176525E-7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      0.52359877559829882, 0.42776643270021519, 0.14057319534037271,
+      -0.087710905472226153, -0.26347778780427772, -0.39310128821742418,
+      -0.48281859917867781, -0.52359877559819423, -0.52359877559829759,
+      -0.52359877559829793, -0.523598775598296, -0.52359877556626744,
+      -0.49181315423615884, -0.44731655838907036, -0.39879177444320424,
+      -0.3485577908029982, -0.29849184163025727, -0.25006708362252256,
+      -0.20439421795245194, -0.16226507959604297, -0.12419652386535296,
+      -0.090473256086378073, -0.0611885536149222, -0.03628210749553612,
+      -0.015574457617914206, 0.0012022924439527571, 0.014377616828611273,
+      0.024319556124890784, 0.031415430485750795, 0.03605606790465421,
+      0.038623276787406957, 0.039480251566685554, 0.038964577703093917,
+      0.037383494854368537, 0.035011081346770445, 0.032087036683849046,
+      0.028816759298927686, 0.025372442018699704, 0.021894935974217988,
+      0.018496163478782357, 0.015261890468467376, 0.012254698500033023,
+      0.0095170242793903848, 0.0070741607093389725, 0.0049371371302492362,
+      0.0031054175625584435, 0.0015693742497555618, 0.00031250964950424454,
+      -0.00068658668805410272, -0.0014525490392419682, -0.0020118082605197207,
+      -0.002391413783940588, -0.0026180874188040937, -0.002717488235133847,
+      -0.0027136658385279455, -0.0026286784806832664, -0.0024823524775664518,
+      -0.0022921601371660438, -0.0020731946597428719, -0.0018382221146716615,
+      -0.001597792489151928, -0.0013603938352824141, -0.0011326356225119794,
+      -0.0009194494594879643, -0.00072429732633616517, -0.00054937931354659408,
+      -0.000395834567819886, -0.00026393068038177425, -0.000153238110611853,
+      -6.2787416238552218E-5, 8.7919341020814556E-6, 6.3151549507201032E-5,
+      0.00010212259977870897, 0.00012763192915676846, 0.00014163449578452614,
+      0.00014606048587917364, 0.00014277518060057393, 0.00013354943735022218,
+      0.00012003846691233111, 0.00010376642859077911, 8.611422116422407E-5,
+      6.8307729613970025E-5, 5.1403742393985041E-5, 3.6270893226553191E-5,
+      2.35635378181831E-5, 1.3687901617376319E-5, 6.7629729159079943E-6,
+      2.5849973264158166E-6, 6.1678309870583092E-7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0 } ;
 
@@ -1310,10 +1318,10 @@ RT_MODEL_helicopter_T *helicopter(void)
   helicopter_M->Timing.stepSize1 = 0.002;
 
   /* External mode info */
-  helicopter_M->Sizes.checksums[0] = (3087584497U);
-  helicopter_M->Sizes.checksums[1] = (3569211666U);
-  helicopter_M->Sizes.checksums[2] = (1457075168U);
-  helicopter_M->Sizes.checksums[3] = (3922459678U);
+  helicopter_M->Sizes.checksums[0] = (2542980025U);
+  helicopter_M->Sizes.checksums[1] = (570777438U);
+  helicopter_M->Sizes.checksums[2] = (2419850625U);
+  helicopter_M->Sizes.checksums[3] = (2424099482U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -1353,6 +1361,10 @@ RT_MODEL_helicopter_T *helicopter(void)
     helicopter_B.Gain_e = 0.0;
     helicopter_B.Sum = 0.0;
     helicopter_B.Gain_dg = 0.0;
+    helicopter_B.Sum10[0] = 0.0;
+    helicopter_B.Sum10[1] = 0.0;
+    helicopter_B.Sum10[2] = 0.0;
+    helicopter_B.Sum10[3] = 0.0;
     helicopter_B.FromWorkspace = 0.0;
     helicopter_B.Gain_l = 0.0;
     helicopter_B.BackmotorSaturation = 0.0;
@@ -1464,9 +1476,9 @@ RT_MODEL_helicopter_T *helicopter(void)
   helicopter_M->Sizes.numU = (0);      /* Number of model inputs */
   helicopter_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   helicopter_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  helicopter_M->Sizes.numBlocks = (60);/* Number of blocks */
-  helicopter_M->Sizes.numBlockIO = (16);/* Number of block outputs */
-  helicopter_M->Sizes.numBlockPrms = (144);/* Sum of parameter "widths" */
+  helicopter_M->Sizes.numBlocks = (62);/* Number of blocks */
+  helicopter_M->Sizes.numBlockIO = (17);/* Number of block outputs */
+  helicopter_M->Sizes.numBlockPrms = (148);/* Sum of parameter "widths" */
   return helicopter_M;
 }
 

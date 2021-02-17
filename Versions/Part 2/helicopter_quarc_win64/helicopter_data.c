@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.10
+ * Model version              : 11.12
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb  3 11:05:56 2021
+ * C source code generated on : Wed Feb 17 08:39:03 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -67,6 +67,11 @@ P_helicopter_T helicopter_P = {
    * Referenced by: '<S4>/Travel_gain'
    */
   1.0,
+
+  /* Variable: x0
+   * Referenced by: '<Root>/Constant1'
+   */
+  { 3.1415926535897931, 0.0, 0.0, 0.0 },
 
   /* Mask Parameter: HILWriteAnalog_channels
    * Referenced by: '<S4>/HIL Write Analog'
