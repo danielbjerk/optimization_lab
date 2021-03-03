@@ -48,8 +48,8 @@ Q1(4,4) = 0;                            % Weight on state x4
 Q1(5,5) = 0;                            % Weight on state x5
 Q1(6,6) = 0;                            % Weight on state x6
 
-q1 = 1;
-q2 = 1;
+q1 = 0.01;
+q2 = 10;
 P1 = diag([q1, q2]);                                % Weight on input
 
 Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
@@ -105,11 +105,11 @@ figure(2)
 subplot(811)
 stairs(t,u1),grid
 ylabel('u1')
-title('Optimal trajectory from x_0 to x_f with weight q = 1')
+title('Optimal trajectory from x_0 to x_f with weights q_1 = 0d01, q_2 = 10')
 
 subplot(812)
 stairs(t,u2),grid
-ylabel('u1')
+ylabel('u2')
 
 subplot(813)
 plot(t,x1,'m',t,x1,'mo'),grid
@@ -180,8 +180,8 @@ xlim([t_0 t_f])
 legend('Measured state', 'Theoretical state')
 
 %% Save figure
-% print('p2t7_compare-xopt-xm_Q-[10,5,1,1],R-[0d5],best-tuning','-depsc');
-% print('p2t7_compare-xopt-xm_Q-[10,5,3,1],R-[0d5]','-dpng');
+print('prework4t3_compare-G-[0d01,10]','-depsc');
+print('prework4t3_compare-G-[0d01,10]','-dpng');
 
 %% LQ Problem
 u1_opt = timeseries(u1,t);
