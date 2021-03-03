@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.18
+ * Model version              : 11.26
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 17 11:10:06 2021
+ * C source code generated on : Wed Mar  3 10:54:17 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -876,9 +876,9 @@ typedef struct {
   real_T Gain_e;                       /* '<S7>/Gain' */
   real_T Sum5;                         /* '<Root>/Sum5' */
   real_T Gain_dg;                      /* '<S8>/Gain' */
-  real_T Gain1[6];                     /* '<S2>/Gain1' */
-  real_T Sum10[4];                     /* '<Root>/Sum10' */
+  real_T x[6];                         /* '<Root>/Sum' */
   real_T FromWorkspace2;               /* '<Root>/From Workspace2' */
+  real_T FromWorkspace7;               /* '<Root>/From Workspace7' */
   real_T Sum6;                         /* '<Root>/Sum6' */
   real_T Sum7;                         /* '<Root>/Sum7' */
   real_T Gain_l;                       /* '<S11>/Gain' */
@@ -915,6 +915,12 @@ typedef struct {
   } FromWorkspace2_PWORK;              /* '<Root>/From Workspace2' */
 
   struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } FromWorkspace7_PWORK;              /* '<Root>/From Workspace7' */
+
+  struct {
     void *FilePtr;
   } ToFile_PWORK;                      /* '<Root>/To File' */
 
@@ -941,6 +947,18 @@ typedef struct {
     void *DataPtr;
     void *RSimInfoPtr;
   } FromWorkspace6_PWORK;              /* '<Root>/From Workspace6' */
+
+  struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } FromWorkspace_PWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } FromWorkspace1_PWORK;              /* '<Root>/From Workspace1' */
 
   struct {
     void *LoggedData;
@@ -1000,6 +1018,10 @@ typedef struct {
   } FromWorkspace2_IWORK;              /* '<Root>/From Workspace2' */
 
   struct {
+    int_T PrevIndex;
+  } FromWorkspace7_IWORK;              /* '<Root>/From Workspace7' */
+
+  struct {
     int_T Count;
     int_T Decimation;
   } ToFile_IWORK;                      /* '<Root>/To File' */
@@ -1019,6 +1041,14 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } FromWorkspace6_IWORK;              /* '<Root>/From Workspace6' */
+
+  struct {
+    int_T PrevIndex;
+  } FromWorkspace_IWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    int_T PrevIndex;
+  } FromWorkspace1_IWORK;              /* '<Root>/From Workspace1' */
 
   int8_T If_ActiveSubsystem;           /* '<S3>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S3>/If Action Subsystem' */
@@ -1074,7 +1104,7 @@ typedef struct {
 
 /* Parameters (default storage) */
 struct P_helicopter_T_ {
-  real_T K[4];                         /* Variable: K
+  real_T K[12];                        /* Variable: K
                                         * Referenced by: '<Root>/Gain1'
                                         */
   real_T K_ed;                         /* Variable: K_ed
@@ -1104,7 +1134,7 @@ struct P_helicopter_T_ {
   real_T travel_gain;                  /* Variable: travel_gain
                                         * Referenced by: '<S4>/Travel_gain'
                                         */
-  real_T x0[4];                        /* Variable: x0
+  real_T x0[6];                        /* Variable: x0
                                         * Referenced by: '<Root>/Constant1'
                                         */
   uint32_T HILWriteAnalog_channels[2];/* Mask Parameter: HILWriteAnalog_channels
@@ -1229,9 +1259,6 @@ struct P_helicopter_T_ {
                                         */
   real_T Integrator_LowerSat;          /* Expression: -inf
                                         * Referenced by: '<S3>/Integrator'
-                                        */
-  real_T Constant_Value;               /* Expression: 0
-                                        * Referenced by: '<Root>/Constant'
                                         */
   real_T Backgain_Gain;                /* Expression: 0.5
                                         * Referenced by: '<S1>/Back gain'
