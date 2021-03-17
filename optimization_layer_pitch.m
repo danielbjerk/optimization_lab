@@ -43,7 +43,7 @@ Q1(1,1) = 1;                            % Weight on state x1
 Q1(2,2) = 0;                            % Weight on state x2
 Q1(3,3) = 0;                            % Weight on state x3
 Q1(4,4) = 0;                            % Weight on state x4
-P1 = 1;                                % Weight on input
+P1 = 10;                                % Weight on input
 Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
 c = zeros(size(Q,1),1);                                  % Generate c, this is the linear constant term in the QP
 
@@ -81,7 +81,9 @@ x1  = [pi*unit_padding; x1; zero_padding];
 x2  = [zero_padding; x2; zero_padding];
 x3  = [zero_padding; x3; zero_padding];
 x4  = [zero_padding; x4; zero_padding];
+to_save = [u'; x1'; x2'; x3'; x4'];
 
+save('p2t3_comparing-q_q-10.mat', 'to_save' );
 %% Plotting
 t = 0:delta_t:delta_t*(length(u)-1);
 
@@ -105,47 +107,47 @@ xlabel('tid (s)'),ylabel('pdot')
 
 
 %% Plot measurement against calculations
-sim_t = 0.002;
-t_0 = 0;
-t_f = 30;
-
-input = load('p3t4_testing-Q-R_u-and-x.mat');
-data = input.ans;
-time = data(1,1:end);
-u_m = data(2,1:end);
-y1 = data(3,1:end);
-y2 = data(4,1:end);
-y3 = data(5,1:end);
-y4 = data(6,1:end);
-
-figure(2)
-subplot(511)
-stairs(time,u_m),grid
-ylabel('u')
-title('Optimal trajectory from x_0 to x_f with weight Q = [10, 5, 1, 1], R = 0.5')
-xlim([t_0 t_f])
-
-subplot(512)
-plot(time,y1,t,x1,'m',t,x1,'mo'),grid
-ylabel('lambda')
-xlim([t_0 t_f])
-
-subplot(513)
-plot(time,y2,t,x2,'m',t,x2','mo'),grid
-ylabel('r')
-xlim([t_0 t_f])
-
-subplot(514)
-plot(time,y3,t,x3,'m',t,x3,'mo'),grid
-ylabel('p')
-xlim([t_0 t_f])
-
-subplot(515)
-plot(time,y4,t,x4,'m',t,x4','mo'),grid
-xlabel('tid (s)'),ylabel('pdot')
-xlim([t_0 t_f])
-
-legend('Measured state', 'Theoretical state')
+% sim_t = 0.002;
+% t_0 = 0;
+% t_f = 30;
+% 
+% input = load('p3t4_testing-Q-R_u-and-x.mat');
+% data = input.ans;
+% time = data(1,1:end);
+% u_m = data(2,1:end);
+% y1 = data(3,1:end);
+% y2 = data(4,1:end);
+% y3 = data(5,1:end);
+% y4 = data(6,1:end);
+% 
+% figure(2)
+% subplot(511)
+% stairs(time,u_m),grid
+% ylabel('u')
+% title('Optimal trajectory from x_0 to x_f with weight Q = [10, 5, 1, 1], R = 0.5')
+% xlim([t_0 t_f])
+% 
+% subplot(512)
+% plot(time,y1,t,x1,'m',t,x1,'mo'),grid
+% ylabel('lambda')
+% xlim([t_0 t_f])
+% 
+% subplot(513)
+% plot(time,y2,t,x2,'m',t,x2','mo'),grid
+% ylabel('r')
+% xlim([t_0 t_f])
+% 
+% subplot(514)
+% plot(time,y3,t,x3,'m',t,x3,'mo'),grid
+% ylabel('p')
+% xlim([t_0 t_f])
+% 
+% subplot(515)
+% plot(time,y4,t,x4,'m',t,x4','mo'),grid
+% xlabel('tid (s)'),ylabel('pdot')
+% xlim([t_0 t_f])
+% 
+% legend('Measured state', 'Theoretical state')
 
 %% Save figure
 % print('p2t7_compare-xopt-xm_Q-[10,5,1,1],R-[0d5],best-tuning','-depsc');

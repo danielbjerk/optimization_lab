@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.18
+ * Model version              : 11.24
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 17 11:10:06 2021
+ * C source code generated on : Wed Mar 17 09:57:22 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -90,9 +90,10 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 void helicopter_output(void)
 {
   /* local block i/o variables */
+  real_T rtb_Clock;
   real_T rtb_Frontgain;
   real_T rtb_Derivative;
-  real_T rtb_Clock;
+  real_T rtb_FromWorkspace2;
   real_T rtb_Backgain;
   real_T rtb_HILReadEncoderTimebase_o1;
   real_T rtb_HILReadEncoderTimebase_o2;
@@ -163,27 +164,29 @@ void helicopter_output(void)
       helicopter_B.PitchCounttorad;
   }
 
-  /* Clock: '<S3>/Clock' incorporates:
+  /* FromWorkspace: '<Root>/From Workspace2' incorporates:
    *  TransferFcn: '<S4>/Travel: Transfer Fcn'
    */
-  rtb_Clock = 0.0;
-  rtb_Clock += helicopter_P.TravelTransferFcn_C *
+  rtb_FromWorkspace2 = 0.0;
+  rtb_FromWorkspace2 += helicopter_P.TravelTransferFcn_C *
     helicopter_X.TravelTransferFcn_CSTATE;
-  rtb_Clock += helicopter_P.TravelTransferFcn_D * helicopter_B.TravelCounttorad;
+  rtb_FromWorkspace2 += helicopter_P.TravelTransferFcn_D *
+    helicopter_B.TravelCounttorad;
 
   /* Gain: '<S13>/Gain' */
-  helicopter_B.Gain_d = helicopter_P.Gain_Gain_l * rtb_Clock;
+  helicopter_B.Gain_d = helicopter_P.Gain_Gain_l * rtb_FromWorkspace2;
 
-  /* Clock: '<S3>/Clock' incorporates:
+  /* FromWorkspace: '<Root>/From Workspace2' incorporates:
    *  TransferFcn: '<S4>/Pitch: Transfer Fcn'
    */
-  rtb_Clock = 0.0;
-  rtb_Clock += helicopter_P.PitchTransferFcn_C *
+  rtb_FromWorkspace2 = 0.0;
+  rtb_FromWorkspace2 += helicopter_P.PitchTransferFcn_C *
     helicopter_X.PitchTransferFcn_CSTATE;
-  rtb_Clock += helicopter_P.PitchTransferFcn_D * helicopter_B.PitchCounttorad;
+  rtb_FromWorkspace2 += helicopter_P.PitchTransferFcn_D *
+    helicopter_B.PitchCounttorad;
 
   /* Gain: '<S10>/Gain' */
-  helicopter_B.Gain_b = helicopter_P.Gain_Gain_ae * rtb_Clock;
+  helicopter_B.Gain_b = helicopter_P.Gain_Gain_ae * rtb_FromWorkspace2;
   if (rtmIsMajorTimeStep(helicopter_M)) {
     /* Gain: '<S4>/Elevation: Count to rad' incorporates:
      *  Gain: '<S4>/Elevation_gain'
@@ -202,17 +205,17 @@ void helicopter_output(void)
       helicopter_P.elavation_offsetdeg1_Value;
   }
 
-  /* Clock: '<S3>/Clock' incorporates:
+  /* FromWorkspace: '<Root>/From Workspace2' incorporates:
    *  TransferFcn: '<S4>/Elevation: Transfer Fcn'
    */
-  rtb_Clock = 0.0;
-  rtb_Clock += helicopter_P.ElevationTransferFcn_C *
+  rtb_FromWorkspace2 = 0.0;
+  rtb_FromWorkspace2 += helicopter_P.ElevationTransferFcn_C *
     helicopter_X.ElevationTransferFcn_CSTATE;
-  rtb_Clock += helicopter_P.ElevationTransferFcn_D *
+  rtb_FromWorkspace2 += helicopter_P.ElevationTransferFcn_D *
     helicopter_B.ElevationCounttorad;
 
   /* Gain: '<S8>/Gain' */
-  helicopter_B.Gain_dg = helicopter_P.Gain_Gain_n * rtb_Clock;
+  helicopter_B.Gain_dg = helicopter_P.Gain_Gain_n * rtb_FromWorkspace2;
 
   /* Gain: '<S2>/Gain1' */
   helicopter_B.Gain1[0] = helicopter_P.Gain1_Gain * helicopter_B.Gain;
@@ -264,9 +267,9 @@ void helicopter_output(void)
       real_T t2 = pTimeValues[currTimeIndex + 1];
       if (t1 == t2) {
         if (t < t1) {
-          helicopter_B.FromWorkspace2 = pDataValues[currTimeIndex];
+          rtb_FromWorkspace2 = pDataValues[currTimeIndex];
         } else {
-          helicopter_B.FromWorkspace2 = pDataValues[currTimeIndex + 1];
+          rtb_FromWorkspace2 = pDataValues[currTimeIndex + 1];
         }
       } else {
         real_T f1 = (t2 - t) / (t2 - t1);
@@ -276,52 +279,8 @@ void helicopter_output(void)
         int_T TimeIndex= currTimeIndex;
         d1 = pDataValues[TimeIndex];
         d2 = pDataValues[TimeIndex + 1];
-        helicopter_B.FromWorkspace2 = (real_T) rtInterpolate(d1, d2, f1, f2);
+        rtb_FromWorkspace2 = (real_T) rtInterpolate(d1, d2, f1, f2);
         pDataValues += 141;
-      }
-    }
-  }
-
-  if (rtmIsMajorTimeStep(helicopter_M)) {
-    /* SignalConversion generated from: '<Root>/To File' */
-    rtb_TmpSignalConversionAtToFile[0] = helicopter_B.FromWorkspace2;
-    rtb_TmpSignalConversionAtToFile[1] = helicopter_B.Sum10[0];
-    rtb_TmpSignalConversionAtToFile[2] = helicopter_B.Sum10[1];
-    rtb_TmpSignalConversionAtToFile[3] = helicopter_B.Sum10[2];
-    rtb_TmpSignalConversionAtToFile[4] = helicopter_B.Sum10[3];
-    rtb_TmpSignalConversionAtToFile[5] = helicopter_B.Gain1[4];
-    rtb_TmpSignalConversionAtToFile[6] = helicopter_B.Gain1[5];
-
-    /* ToFile: '<Root>/To File' */
-    {
-      if (!(++helicopter_DW.ToFile_IWORK.Decimation % 1) &&
-          (helicopter_DW.ToFile_IWORK.Count * (7 + 1)) + 1 < 100000000 ) {
-        FILE *fp = (FILE *) helicopter_DW.ToFile_PWORK.FilePtr;
-        if (fp != (NULL)) {
-          real_T u[7 + 1];
-          helicopter_DW.ToFile_IWORK.Decimation = 0;
-          u[0] = helicopter_M->Timing.t[1];
-          u[1] = rtb_TmpSignalConversionAtToFile[0];
-          u[2] = rtb_TmpSignalConversionAtToFile[1];
-          u[3] = rtb_TmpSignalConversionAtToFile[2];
-          u[4] = rtb_TmpSignalConversionAtToFile[3];
-          u[5] = rtb_TmpSignalConversionAtToFile[4];
-          u[6] = rtb_TmpSignalConversionAtToFile[5];
-          u[7] = rtb_TmpSignalConversionAtToFile[6];
-          if (fwrite(u, sizeof(real_T), 7 + 1, fp) != 7 + 1) {
-            rtmSetErrorStatus(helicopter_M,
-                              "Error writing to MAT-file p3t4_testing-Q-R_u-and-x.mat");
-            return;
-          }
-
-          if (((++helicopter_DW.ToFile_IWORK.Count) * (7 + 1))+1 >= 100000000) {
-            (void)fprintf(stdout,
-                          "*** The ToFile block will stop logging data before\n"
-                          "    the simulation has ended, because it has reached\n"
-                          "    the maximum number of elements (100000000)\n"
-                          "    allowed in MAT-file p3t4_testing-Q-R_u-and-x.mat.\n");
-          }
-        }
       }
     }
   }
@@ -529,15 +488,62 @@ void helicopter_output(void)
   /* Gain: '<S1>/Back gain' incorporates:
    *  Gain: '<Root>/Gain1'
    *  Sum: '<Root>/Sum8'
-   *  Sum: '<Root>/Sum9'
-   *  Sum: '<S5>/Sum2'
    */
   rtb_Backgain = (((helicopter_B.Sum10[0] - rtb_Clock) * helicopter_P.K[0] +
                    (helicopter_B.Sum10[1] - rtb_Frontgain) * helicopter_P.K[1])
                   + (helicopter_B.Sum10[2] - rtb_Derivative) * helicopter_P.K[2])
     + (helicopter_B.Sum10[3] - rtb_Backgain) * helicopter_P.K[3];
-  rtb_Backgain = helicopter_B.FromWorkspace2 - rtb_Backgain;
-  rtb_Backgain -= helicopter_B.Sum10[2];
+
+  /* Sum: '<Root>/Sum9' */
+  helicopter_B.Sum9 = rtb_FromWorkspace2 - rtb_Backgain;
+  if (rtmIsMajorTimeStep(helicopter_M)) {
+    /* SignalConversion generated from: '<Root>/To File' */
+    rtb_TmpSignalConversionAtToFile[0] = helicopter_B.Sum9;
+    rtb_TmpSignalConversionAtToFile[1] = helicopter_B.Sum10[0];
+    rtb_TmpSignalConversionAtToFile[2] = helicopter_B.Sum10[1];
+    rtb_TmpSignalConversionAtToFile[3] = helicopter_B.Sum10[2];
+    rtb_TmpSignalConversionAtToFile[4] = helicopter_B.Sum10[3];
+    rtb_TmpSignalConversionAtToFile[5] = helicopter_B.Gain1[4];
+    rtb_TmpSignalConversionAtToFile[6] = helicopter_B.Gain1[5];
+
+    /* ToFile: '<Root>/To File' */
+    {
+      if (!(++helicopter_DW.ToFile_IWORK.Decimation % 1) &&
+          (helicopter_DW.ToFile_IWORK.Count * (7 + 1)) + 1 < 100000000 ) {
+        FILE *fp = (FILE *) helicopter_DW.ToFile_PWORK.FilePtr;
+        if (fp != (NULL)) {
+          real_T u[7 + 1];
+          helicopter_DW.ToFile_IWORK.Decimation = 0;
+          u[0] = helicopter_M->Timing.t[1];
+          u[1] = rtb_TmpSignalConversionAtToFile[0];
+          u[2] = rtb_TmpSignalConversionAtToFile[1];
+          u[3] = rtb_TmpSignalConversionAtToFile[2];
+          u[4] = rtb_TmpSignalConversionAtToFile[3];
+          u[5] = rtb_TmpSignalConversionAtToFile[4];
+          u[6] = rtb_TmpSignalConversionAtToFile[5];
+          u[7] = rtb_TmpSignalConversionAtToFile[6];
+          if (fwrite(u, sizeof(real_T), 7 + 1, fp) != 7 + 1) {
+            rtmSetErrorStatus(helicopter_M,
+                              "Error writing to MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
+            return;
+          }
+
+          if (((++helicopter_DW.ToFile_IWORK.Count) * (7 + 1))+1 >= 100000000) {
+            (void)fprintf(stdout,
+                          "*** The ToFile block will stop logging data before\n"
+                          "    the simulation has ended, because it has reached\n"
+                          "    the maximum number of elements (100000000)\n"
+                          "    allowed in MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat.\n");
+          }
+        }
+      }
+    }
+  }
+
+  /* Gain: '<S1>/Back gain' incorporates:
+   *  Sum: '<S5>/Sum2'
+   */
+  rtb_Backgain = helicopter_B.Sum9 - helicopter_B.Sum10[2];
 
   /* Gain: '<S5>/K_pp' */
   rtb_K_pp = helicopter_P.K_pp * rtb_Backgain;
@@ -1265,27 +1271,6 @@ void helicopter_initialize(void)
     helicopter_DW.FromWorkspace2_IWORK.PrevIndex = 0;
   }
 
-  /* Start for ToFile: '<Root>/To File' */
-  {
-    FILE *fp = (NULL);
-    char fileName[509] = "p3t4_testing-Q-R_u-and-x.mat";
-    if ((fp = fopen(fileName, "wb")) == (NULL)) {
-      rtmSetErrorStatus(helicopter_M,
-                        "Error creating .mat file p3t4_testing-Q-R_u-and-x.mat");
-      return;
-    }
-
-    if (rt_WriteMat4FileHeader(fp, 7 + 1, 0, "ans")) {
-      rtmSetErrorStatus(helicopter_M,
-                        "Error writing mat file header to file p3t4_testing-Q-R_u-and-x.mat");
-      return;
-    }
-
-    helicopter_DW.ToFile_IWORK.Count = 0;
-    helicopter_DW.ToFile_IWORK.Decimation = -1;
-    helicopter_DW.ToFile_PWORK.FilePtr = fp;
-  }
-
   /* Start for FromWorkspace: '<Root>/From Workspace3' */
   {
     static real_T pTimeValues0[] = { 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
@@ -1528,6 +1513,27 @@ void helicopter_initialize(void)
     helicopter_DW.FromWorkspace6_IWORK.PrevIndex = 0;
   }
 
+  /* Start for ToFile: '<Root>/To File' */
+  {
+    FILE *fp = (NULL);
+    char fileName[509] = "p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat";
+    if ((fp = fopen(fileName, "wb")) == (NULL)) {
+      rtmSetErrorStatus(helicopter_M,
+                        "Error creating .mat file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
+      return;
+    }
+
+    if (rt_WriteMat4FileHeader(fp, 7 + 1, 0, "ans")) {
+      rtmSetErrorStatus(helicopter_M,
+                        "Error writing mat file header to file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
+      return;
+    }
+
+    helicopter_DW.ToFile_IWORK.Count = 0;
+    helicopter_DW.ToFile_IWORK.Decimation = -1;
+    helicopter_DW.ToFile_PWORK.FilePtr = fp;
+  }
+
   /* Start for If: '<S3>/If' */
   helicopter_DW.If_ActiveSubsystem = -1;
 
@@ -1650,28 +1656,28 @@ void helicopter_terminate(void)
   {
     FILE *fp = (FILE *) helicopter_DW.ToFile_PWORK.FilePtr;
     if (fp != (NULL)) {
-      char fileName[509] = "p3t4_testing-Q-R_u-and-x.mat";
+      char fileName[509] = "p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat";
       if (fclose(fp) == EOF) {
         rtmSetErrorStatus(helicopter_M,
-                          "Error closing MAT-file p3t4_testing-Q-R_u-and-x.mat");
+                          "Error closing MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
         return;
       }
 
       if ((fp = fopen(fileName, "r+b")) == (NULL)) {
         rtmSetErrorStatus(helicopter_M,
-                          "Error reopening MAT-file p3t4_testing-Q-R_u-and-x.mat");
+                          "Error reopening MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
         return;
       }
 
       if (rt_WriteMat4FileHeader(fp, 7 + 1, helicopter_DW.ToFile_IWORK.Count,
            "ans")) {
         rtmSetErrorStatus(helicopter_M,
-                          "Error writing header for ans to MAT-file p3t4_testing-Q-R_u-and-x.mat");
+                          "Error writing header for ans to MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
       }
 
       if (fclose(fp) == EOF) {
         rtmSetErrorStatus(helicopter_M,
-                          "Error closing MAT-file p3t4_testing-Q-R_u-and-x.mat");
+                          "Error closing MAT-file p3t4_datasets-comparing-Q_Q10,5,1,1R0d5_u-and-x.mat");
         return;
       }
 
@@ -1818,10 +1824,10 @@ RT_MODEL_helicopter_T *helicopter(void)
   helicopter_M->Timing.stepSize1 = 0.002;
 
   /* External mode info */
-  helicopter_M->Sizes.checksums[0] = (2670332781U);
-  helicopter_M->Sizes.checksums[1] = (2487869497U);
-  helicopter_M->Sizes.checksums[2] = (2562766472U);
-  helicopter_M->Sizes.checksums[3] = (3923537981U);
+  helicopter_M->Sizes.checksums[0] = (4227684318U);
+  helicopter_M->Sizes.checksums[1] = (948722221U);
+  helicopter_M->Sizes.checksums[2] = (492212756U);
+  helicopter_M->Sizes.checksums[3] = (2041871102U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -1865,7 +1871,7 @@ RT_MODEL_helicopter_T *helicopter(void)
     helicopter_B.Sum10[1] = 0.0;
     helicopter_B.Sum10[2] = 0.0;
     helicopter_B.Sum10[3] = 0.0;
-    helicopter_B.FromWorkspace2 = 0.0;
+    helicopter_B.Sum9 = 0.0;
     helicopter_B.Sum6 = 0.0;
     helicopter_B.Sum7 = 0.0;
     helicopter_B.Gain_l = 0.0;

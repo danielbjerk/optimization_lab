@@ -621,7 +621,7 @@
 	  section.data(12).logicalSrcIdx = 11;
 	  section.data(12).dtTransOffset = 16;
 	
-	  ;% helicopter_B.FromWorkspace2
+	  ;% helicopter_B.Sum9
 	  section.data(13).logicalSrcIdx = 12;
 	  section.data(13).dtTransOffset = 20;
 	
@@ -786,23 +786,23 @@
 	  section.data(2).logicalSrcIdx = 16;
 	  section.data(2).dtTransOffset = 1;
 	
-	  ;% helicopter_DW.ToFile_PWORK.FilePtr
+	  ;% helicopter_DW.FromWorkspace3_PWORK.TimePtr
 	  section.data(3).logicalSrcIdx = 17;
 	  section.data(3).dtTransOffset = 2;
 	
-	  ;% helicopter_DW.FromWorkspace3_PWORK.TimePtr
+	  ;% helicopter_DW.FromWorkspace4_PWORK.TimePtr
 	  section.data(4).logicalSrcIdx = 18;
 	  section.data(4).dtTransOffset = 3;
 	
-	  ;% helicopter_DW.FromWorkspace4_PWORK.TimePtr
+	  ;% helicopter_DW.FromWorkspace5_PWORK.TimePtr
 	  section.data(5).logicalSrcIdx = 19;
 	  section.data(5).dtTransOffset = 4;
 	
-	  ;% helicopter_DW.FromWorkspace5_PWORK.TimePtr
+	  ;% helicopter_DW.FromWorkspace6_PWORK.TimePtr
 	  section.data(6).logicalSrcIdx = 20;
 	  section.data(6).dtTransOffset = 5;
 	
-	  ;% helicopter_DW.FromWorkspace6_PWORK.TimePtr
+	  ;% helicopter_DW.ToFile_PWORK.FilePtr
 	  section.data(7).logicalSrcIdx = 21;
 	  section.data(7).dtTransOffset = 6;
 	
@@ -911,23 +911,23 @@
 	  section.data(1).logicalSrcIdx = 42;
 	  section.data(1).dtTransOffset = 0;
 	
-	  ;% helicopter_DW.ToFile_IWORK.Count
+	  ;% helicopter_DW.FromWorkspace3_IWORK.PrevIndex
 	  section.data(2).logicalSrcIdx = 43;
 	  section.data(2).dtTransOffset = 1;
 	
-	  ;% helicopter_DW.FromWorkspace3_IWORK.PrevIndex
+	  ;% helicopter_DW.FromWorkspace4_IWORK.PrevIndex
 	  section.data(3).logicalSrcIdx = 44;
 	  section.data(3).dtTransOffset = 2;
 	
-	  ;% helicopter_DW.FromWorkspace4_IWORK.PrevIndex
+	  ;% helicopter_DW.FromWorkspace5_IWORK.PrevIndex
 	  section.data(4).logicalSrcIdx = 45;
 	  section.data(4).dtTransOffset = 3;
 	
-	  ;% helicopter_DW.FromWorkspace5_IWORK.PrevIndex
+	  ;% helicopter_DW.FromWorkspace6_IWORK.PrevIndex
 	  section.data(5).logicalSrcIdx = 46;
 	  section.data(5).dtTransOffset = 4;
 	
-	  ;% helicopter_DW.FromWorkspace6_IWORK.PrevIndex
+	  ;% helicopter_DW.ToFile_IWORK.Count
 	  section.data(6).logicalSrcIdx = 47;
 	  section.data(6).dtTransOffset = 5;
 	
@@ -976,8 +976,8 @@
   ;%
 
 
-  targMap.checksum0 = 2670332781;
-  targMap.checksum1 = 2487869497;
-  targMap.checksum2 = 2562766472;
-  targMap.checksum3 = 3923537981;
+  targMap.checksum0 = 4227684318;
+  targMap.checksum1 = 948722221;
+  targMap.checksum2 = 492212756;
+  targMap.checksum3 = 2041871102;
 

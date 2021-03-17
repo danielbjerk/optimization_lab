@@ -48,7 +48,7 @@ Q1(4,4) = 0;                            % Weight on state x4
 Q1(5,5) = 0;                            % Weight on state x5
 Q1(6,6) = 0;                            % Weight on state x6
 
-q1 = 0.01;
+q1 = 1;
 q2 = 10;
 P1 = diag([q1, q2]);                                % Weight on input
 
@@ -105,7 +105,7 @@ figure(2)
 subplot(811)
 stairs(t,u1),grid
 ylabel('u1')
-title('Optimal trajectory from x_0 to x_f with weights q_1 = 0d01, q_2 = 10')
+title('Optimal trajectory from x_0 to x_f with weights q_1 = 1, q_2 = 10')
 
 subplot(812)
 stairs(t,u2),grid
@@ -138,50 +138,68 @@ xlabel('tid (s)'),ylabel('edot')
 
 %% Plot measurement against calculations
 sim_t = 0.002;
-t_0 = 0;
-t_f = 30;
+t_0 = 4;
+t_f = 18;
 
-input = load('p3t4_testing-Q-R_u-and-x.mat');
+input = load('p4t6_uopt-and-QR_x-and-u.mat');
 data = input.ans;
 time = data(1,1:end);
-u_m = data(2,1:end);
-y1 = data(3,1:end);
-y2 = data(4,1:end);
-y3 = data(5,1:end);
-y4 = data(6,1:end);
+u1_m = data(2,1:end);
+u2_m = data(3,1:end);
+y1 = data(4,1:end);
+y2 = data(5,1:end);
+y3 = data(6,1:end);
+y4 = data(7,1:end);
+y5 = data(8,1:end);
+y6 = data(9,1:end);
 
 figure(2)
-subplot(511)
-stairs(time,u_m),grid
-ylabel('u')
-title('Optimal trajectory from x_0 to x_f with weight Q = [10, 5, 1, 1], R = 0.5')
+subplot(811)
+stairs(time,u1_m),grid
+ylabel('u1')
+title('Optimal trajectory from x_0 to x_f with weight Q = [10, 5, 1, 1, 1, 1], R = [0.5, 1]')
 xlim([t_0 t_f])
 
-subplot(512)
+subplot(812)
+stairs(time,u2_m),grid
+ylabel('u2')
+xlim([t_0 t_f])
+
+subplot(813)
 plot(time,y1,t,x1,'m',t,x1,'mo'),grid
 ylabel('lambda')
 xlim([t_0 t_f])
 
-subplot(513)
+subplot(814)
 plot(time,y2,t,x2,'m',t,x2','mo'),grid
 ylabel('r')
 xlim([t_0 t_f])
 
-subplot(514)
+subplot(815)
 plot(time,y3,t,x3,'m',t,x3,'mo'),grid
 ylabel('p')
 xlim([t_0 t_f])
 
-subplot(515)
+subplot(816)
 plot(time,y4,t,x4,'m',t,x4','mo'),grid
-xlabel('tid (s)'),ylabel('pdot')
+ylabel('pdot')
+xlim([t_0 t_f])
+
+subplot(817)
+plot(time,y5,t,x5,'m',t,x5','mo'),grid
+ylabel('e')
+xlim([t_0 t_f])
+
+subplot(818)
+plot(time,y6,t,x6,'m',t,x6','mo'),grid
+xlabel('tid (s)'),ylabel('edot')
 xlim([t_0 t_f])
 
 legend('Measured state', 'Theoretical state')
 
 %% Save figure
-print('prework4t3_compare-G-[0d01,10]','-depsc');
-print('prework4t3_compare-G-[0d01,10]','-dpng');
+print('p4t6_uopt-and-QR_x-and-u','-depsc');
+print('p4t6_uopt-and-QR_x-and-u','-dpng');
 
 %% LQ Problem
 u1_opt = timeseries(u1,t);

@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.18
+ * Model version              : 11.24
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 17 11:10:06 2021
+ * C source code generated on : Wed Mar 17 09:57:22 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -878,7 +878,7 @@ typedef struct {
   real_T Gain_dg;                      /* '<S8>/Gain' */
   real_T Gain1[6];                     /* '<S2>/Gain1' */
   real_T Sum10[4];                     /* '<Root>/Sum10' */
-  real_T FromWorkspace2;               /* '<Root>/From Workspace2' */
+  real_T Sum9;                         /* '<Root>/Sum9' */
   real_T Sum6;                         /* '<Root>/Sum6' */
   real_T Sum7;                         /* '<Root>/Sum7' */
   real_T Gain_l;                       /* '<S11>/Gain' */
@@ -915,10 +915,6 @@ typedef struct {
   } FromWorkspace2_PWORK;              /* '<Root>/From Workspace2' */
 
   struct {
-    void *FilePtr;
-  } ToFile_PWORK;                      /* '<Root>/To File' */
-
-  struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
@@ -941,6 +937,10 @@ typedef struct {
     void *DataPtr;
     void *RSimInfoPtr;
   } FromWorkspace6_PWORK;              /* '<Root>/From Workspace6' */
+
+  struct {
+    void *FilePtr;
+  } ToFile_PWORK;                      /* '<Root>/To File' */
 
   struct {
     void *LoggedData;
@@ -1000,11 +1000,6 @@ typedef struct {
   } FromWorkspace2_IWORK;              /* '<Root>/From Workspace2' */
 
   struct {
-    int_T Count;
-    int_T Decimation;
-  } ToFile_IWORK;                      /* '<Root>/To File' */
-
-  struct {
     int_T PrevIndex;
   } FromWorkspace3_IWORK;              /* '<Root>/From Workspace3' */
 
@@ -1019,6 +1014,11 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } FromWorkspace6_IWORK;              /* '<Root>/From Workspace6' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile_IWORK;                      /* '<Root>/To File' */
 
   int8_T If_ActiveSubsystem;           /* '<S3>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S3>/If Action Subsystem' */

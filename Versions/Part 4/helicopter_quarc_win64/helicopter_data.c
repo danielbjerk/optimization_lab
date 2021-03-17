@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.18
+ * Model version              : 11.26
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 17 11:10:06 2021
+ * C source code generated on : Wed Mar  3 10:54:17 2021
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -26,8 +26,10 @@ P_helicopter_T helicopter_P = {
   /* Variable: K
    * Referenced by: '<Root>/Gain1'
    */
-  { -2.7261980323712991, -6.2955972218399276, 2.7283554480631569,
-    0.76081128224002448 },
+  { -0.93775456646692235, 2.079235258612432E-17, -3.1449454086579434,
+    3.2928347131376019E-16, 1.7192872527694441, -1.5549184624202482E-15,
+    0.61245405067381564, -8.3830884358949946E-17, 2.003843700811033E-15,
+    2.1199867305840869, -4.3505113818369449E-16, 1.8789641098423249 },
 
   /* Variable: K_ed
    * Referenced by: '<S3>/K_ed'
@@ -77,7 +79,7 @@ P_helicopter_T helicopter_P = {
   /* Variable: x0
    * Referenced by: '<Root>/Constant1'
    */
-  { 3.1415926535897931, 0.0, 0.0, 0.0 },
+  { 3.1415926535897931, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
   /* Mask Parameter: HILWriteAnalog_channels
    * Referenced by: '<S4>/HIL Write Analog'
@@ -281,11 +283,6 @@ P_helicopter_T helicopter_P = {
 
   /* Expression: -inf
    * Referenced by: '<S3>/Integrator'
-   */
-  0.0,
-
-  /* Expression: 0
-   * Referenced by: '<Root>/Constant'
    */
   0.0,
 
