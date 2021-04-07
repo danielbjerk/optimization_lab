@@ -198,8 +198,8 @@ xlim([t_0 t_f])
 legend('Measured state', 'Theoretical state')
 
 %% Save figure
-print('p4t6_uopt-and-QR_x-and-u','-depsc');
-print('p4t6_uopt-and-QR_x-and-u','-dpng');
+%print('p4t6_uopt-and-QR_x-and-u','-depsc');
+%print('p4t6_uopt-and-QR_x-and-u','-dpng');
 
 %% LQ Problem
 u1_opt = timeseries(u1,t);
